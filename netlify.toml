@@ -1,0 +1,22 @@
+# ====== Configuration de déploiement Netlify ======
+# L'application est un SPA React + Vite. Le site utilise un HashRouter,
+# donc aucune réécriture n'est nécessaire pour le routage.
+# Cette règle de fallback garantit que les URL directes fonctionnent quand même.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Redirection SPA : toutes les routes vers index.html (sécurité au cas où)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# En-têtes de sécurité et de cache de base
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
